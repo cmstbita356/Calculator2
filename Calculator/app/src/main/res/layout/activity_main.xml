@@ -18,6 +18,7 @@
         android:textColor="#A6A9B6"
         android:gravity="center_vertical|right"
         android:textSize="30dp"
+        android:layout_weight="3"
         />
     <TextView
         android:id="@+id/cal"
@@ -28,7 +29,9 @@
         android:gravity="center_vertical|right"
         android:textSize="30dp"
         android:text="0"
+        android:layout_weight="3"
         />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +47,8 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <TextView
                 android:id="@+id/history"
@@ -63,29 +67,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="-10dp"
+        >
         <Button
-            android:id="@+id/seeAll"
+            android:id="@+id/watchAll"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
             android:background="@null"
-            android:gravity="right|bottom"
-            android:text="Clear History"
-            android:textColor="#F94A29"
+            android:gravity="left"
+            android:text="Watch All history"
+            android:textColor="#85CDFD"
             android:textSize="15dp"
             style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
         <Button
             android:id="@+id/clearHistory"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="-10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
             android:background="@null"
-            android:gravity="right|bottom"
+            android:layout_gravity="end"
+            android:gravity="right"
             android:text="Clear History"
             android:textColor="#F94A29"
-            android:textSize="15dp"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_gravity="end"/>
+            android:textSize="15dp" />
     </LinearLayout>
 
 
@@ -94,7 +104,8 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/bracket_left"
@@ -138,7 +149,8 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/num7"
@@ -182,7 +194,8 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/num4"
@@ -226,7 +239,8 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/num1"
@@ -270,7 +284,8 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/num0"

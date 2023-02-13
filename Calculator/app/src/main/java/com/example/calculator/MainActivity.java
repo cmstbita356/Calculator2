@@ -1,11 +1,15 @@
 package com.example.calculator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
@@ -21,6 +25,10 @@ import java.util.Stack;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String KEY_DISPLAY = "display";
+    private static final String KEY_HISTORY = "history";
+    private static final int REQUEST_CODE = 1;
+
     TextView result;
     TextView cal;
     Button bracket_left; Button bracket_right; Button percent; Button clear;
@@ -31,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     TextView history;
     Button clearHistory;
 
-    String stringCal= "";
-    ArrayList<String> listHistory = new ArrayList<>();
+    String stringCal = "";
+    String textHis = "";
+
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
@@ -41,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-    private View.OnClickListener showText = new View.OnClickListener() {
+    private View.OnClickListener display = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Button b = (Button)view;
@@ -93,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // Khai báo biến
         cal = findViewById(R.id.cal);
         result = findViewById(R.id.result);
@@ -108,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         num5 = findViewById(R.id.num5);
         num6 = findViewById(R.id.num6);
         multiply = findViewById(R.id.multiply);
-        num1 = findViewById(R.id.num1);
+        num1 = findViewById(R.id.num1);0
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
         subtract = findViewById(R.id.subtract);
@@ -119,25 +130,32 @@ public class MainActivity extends AppCompatActivity {
         history = findViewById(R.id.history);
         clearHistory = findViewById(R.id.clearHistory);
 
+        if(savedInstanceState != null)
+        {
+            stringCal = savedInstanceState.getString(KEY_DISPLAY);
+            textHis = savedInstanceState.getString(KEY_HISTORY);
+            history.setText(textHis);
+        }
+
         //EventHandler
-        num1.setOnClickListener(showText);
-        num2.setOnClickListener(showText);
-        num3.setOnClickListener(showText);
-        num4.setOnClickListener(showText);
-        num5.setOnClickListener(showText);
-        num6.setOnClickListener(showText);
-        num7.setOnClickListener(showText);
-        num8.setOnClickListener(showText);
-        num9.setOnClickListener(showText);
-        num0.setOnClickListener(showText);
-        comma.setOnClickListener(showText);
-        percent.setOnClickListener(showText);
-        plus.setOnClickListener(showText);
-        subtract.setOnClickListener(showText);
-        multiply.setOnClickListener(showText);
-        divide.setOnClickListener(showText);
-        bracket_left.setOnClickListener(showText);
-        bracket_right.setOnClickListener(showText);
+        num1.setOnClickListener(display);
+        num2.setOnClickListener(display);
+        num3.setOnClickListener(display);
+        num4.setOnClickListener(display);
+        num5.setOnClickListener(display);
+        num6.setOnClickListener(display);
+        num7.setOnClickListener(display);
+        num8.setOnClickListener(display);
+        num9.setOnClickListener(display);
+        num0.setOnClickListener(display);
+        comma.setOnClickListener(display);
+        percent.setOnClickListener(display);
+        plus.setOnClickListener(display);
+        subtract.setOnClickListener(display);
+        multiply.setOnClickListener(display);
+        divide.setOnClickListener(display);
+        bracket_left.setOnClickListener(display);
+        bracket_right.setOnClickListener(display);
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,12 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 stringCal = "";
 
                 //Hiển thị History
-                listHistory.add(text);
-                String textHis = "";
-                for(String his : listHistory)
-                {
-                    textHis += his + "\n";
-                }
+                textHis += text + "\n";
                 history.setText(textHis);
             }
         });
@@ -170,8 +183,20 @@ public class MainActivity extends AppCompatActivity {
         clearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listHistory.clear();
-                history.setText("");
+                textHis = "";
+                history.setText(textHis);
+            }
+        });
+
+        Button btnWatchAll = findViewById(R.id.watchAll);
+        btnWatchAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_HISTORY, textHis);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
@@ -346,5 +371,23 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_HISTORY, textHis);
+        outState.putString(KEY_DISPLAY, stringCal);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                String msg = data.getStringExtra("result");
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
