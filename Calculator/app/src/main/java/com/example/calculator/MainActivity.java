@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         num5 = findViewById(R.id.num5);
         num6 = findViewById(R.id.num6);
         multiply = findViewById(R.id.multiply);
-        num1 = findViewById(R.id.num1);0
+        num1 = findViewById(R.id.num1);
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
         subtract = findViewById(R.id.subtract);
@@ -132,8 +132,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState != null)
         {
-            stringCal = savedInstanceState.getString(KEY_DISPLAY);
-            textHis = savedInstanceState.getString(KEY_HISTORY);
+            Bundle bundle = savedInstanceState.getBundle("bundle");
+            stringCal = bundle.getString(KEY_DISPLAY);
+            textHis = bundle.getString(KEY_HISTORY);
             history.setText(textHis);
         }
 
@@ -376,8 +377,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(KEY_HISTORY, textHis);
-        outState.putString(KEY_DISPLAY, stringCal);
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY_HISTORY, textHis);
+        bundle.putString(KEY_DISPLAY, stringCal);
+        outState.putBundle("bundle", bundle);
     }
 
     @Override
