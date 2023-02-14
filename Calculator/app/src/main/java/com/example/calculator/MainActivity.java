@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,11 +131,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState != null)
         {
-            Bundle bundle = savedInstanceState.getBundle("bundle");
-            stringCal = bundle.getString(KEY_DISPLAY);
-            textHis = bundle.getString(KEY_HISTORY);
-            history.setText(textHis);
+            stringCal = savedInstanceState.getString(KEY_DISPLAY);
+            textHis = savedInstanceState.getString(KEY_HISTORY);
         }
+        history.setText(textHis);
 
         //EventHandler
         num1.setOnClickListener(display);
@@ -375,14 +373,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY_HISTORY, textHis);
-        bundle.putString(KEY_DISPLAY, stringCal);
-        outState.putBundle("bundle", bundle);
+        outState.putString(KEY_DISPLAY, stringCal);
+        outState.putString(KEY_HISTORY, textHis);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
