@@ -27,6 +27,7 @@ import java.util.LinkedList;
 public class MainActivity extends AppCompatActivity {
     private static final String KEY_DISPLAY = "display";
     private static final String KEY_HISTORY = "history";
+    private static final String KEY_RESULT = "result";
     private static final int REQUEST_CODE = 1;
 
     TextView result;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,13 +130,6 @@ public class MainActivity extends AppCompatActivity {
         plus = findViewById(R.id.plus);
         history = findViewById(R.id.history);
         clearHistory = findViewById(R.id.clearHistory);
-
-        if(savedInstanceState != null)
-        {
-            stringCal = savedInstanceState.getString(KEY_DISPLAY);
-            textHis = savedInstanceState.getString(KEY_HISTORY);
-        }
-        history.setText(textHis);
 
         //EventHandler
         num1.setOnClickListener(display);
@@ -193,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(KEY_HISTORY, textHis);
+                bundle.putString(KEY_HISTORY, history.getText().toString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, REQUEST_CODE);
             }
@@ -373,10 +368,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(KEY_DISPLAY, stringCal);
-        outState.putString(KEY_HISTORY, textHis);
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(KEY_DISPLAY, cal.getText().toString());
+        savedInstanceState.putString(KEY_HISTORY, history.getText().toString());
+        savedInstanceState.putString(KEY_RESULT, result.getText().toString());
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        cal.setText(savedInstanceState.getString(KEY_DISPLAY));
+        history.setText(savedInstanceState.getString(KEY_HISTORY));
+        result.setText(savedInstanceState.getString(KEY_RESULT));
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

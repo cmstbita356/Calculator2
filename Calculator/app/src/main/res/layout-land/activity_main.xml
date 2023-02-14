@@ -66,16 +66,39 @@
 
 
         </ScrollView>
-        <Button
-            android:id="@+id/clearHistory"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="-10dp"
-            android:backgroundTint="@color/black"
-            android:gravity="right|bottom"
-            android:text="Clear History"
-            android:textColor="#F94A29"
-            android:textSize="12dp" />
+            >
+            <Button
+                android:id="@+id/watchAll"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/black"
+                android:background="@null"
+                android:gravity="left"
+                android:text="Watch All history"
+                android:textColor="#85CDFD"
+                android:textSize="15dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+            <Button
+                android:id="@+id/clearHistory"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/black"
+                android:background="@null"
+                android:layout_gravity="end"
+                android:gravity="right"
+                android:text="Clear History"
+                android:textColor="#F94A29"
+                android:textSize="15dp" />
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout

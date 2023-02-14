@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 
 public class HistoryActivity extends AppCompatActivity {
-    private static final  String KEY_HISTORY = "history";
+    private static final String KEY_HISTORY = "history";
     String textHis;
     int historyCode = 1;
     @Override
